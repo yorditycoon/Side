@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 export default function Page() {
   return (
     <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Hello World</Text>
-        <Text style={styles.subtitle}>This is your app this is yonas </Text>
-      </View>
+      <Image
+        source={require("../assets/images/side-logo.png")}
+        style={{ width: 400, height: 200 }}
+      />
     </View>
   );
 }
@@ -15,12 +15,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
     padding: 24,
   },
   main: {
     flex: 1,
     justifyContent: "center",
-    maxWidth: 960,
+
     marginHorizontal: "auto",
   },
   title: {
@@ -28,7 +29,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   subtitle: {
-    fontSize: 36,
+    fontSize: 44,
     color: "#38434D",
+    fontWeight: 500,
   },
 });
