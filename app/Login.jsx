@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#000000',
-    marginBottom: 50,
+    marginBottom: 40,
   },
   input: {
     width: "100%",
@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
     color: "#007bff",
   },
   image: {
-    marginTop: 10,
-    marginBottom: 200,
+    marginTop: 0,
+    marginBottom: 100,
   },
 });
 
