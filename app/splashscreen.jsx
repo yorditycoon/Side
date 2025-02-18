@@ -4,21 +4,22 @@ import { useNavigation } from "@react-navigation/native";
 
 const SplashScreen = () => {
   const navigation = useNavigation();
+
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('signup');
+      navigation.navigate("Signup"); 
     }, 2000);
-  }, []);
+  }, [navigation]); 
 
   return (
     <View style={styles.container}>
       <Image
         source={require("../assets/images/side-logo.png")}
-        style={{ width: 250, height: 100 }}
+        style={styles.image}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +27,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+  image: {
+    width: 250,
+    height: 100,
   },
 });
 
