@@ -1,35 +1,46 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-
 
 const SignupScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      
       <Image
         source={require("../assets/images/side-icon.png")}
         style={styles.image}
+        accessibilityLabel="Side app logo"
       />
-
 
       <Text style={styles.title}>Register Now</Text>
 
-      {/* Signup as Company */}
       <TouchableOpacity
         style={styles.signupButton}
-        onPress={() => navigation.navigate('CompanySignup')}>
+        onPress={() => navigation.navigate('CompanyForm')}
+
+        accessibilityRole="button"
+        accessibilityLabel="Sign up as a company"
+        accessibilityHint="Navigate to company registration form"
+      >
         <Text style={styles.signupText}>As a Company</Text>
       </TouchableOpacity>
 
-      {/* Signup as Worker */}
       <TouchableOpacity
         style={styles.signupButton}
-        onPress={() => navigation.navigate('WorkerSignup')}>
+        onPress={() => navigation.navigate('WorkerForm')}
+
+        accessibilityRole="button"
+        accessibilityLabel="Sign up as a worker"
+        accessibilityHint="Navigate to worker registration form"
+      >
         <Text style={styles.signupText}>As a Worker</Text>
       </TouchableOpacity>
 
-      {/* Already have an account? Login */}
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity 
+        onPress={() => navigation.navigate('Login')}
+        accessibilityRole="button"
+        accessibilityLabel="Already have an account? Login"
+        accessibilityHint="Navigate to login screen"
+      >
         <Text style={styles.loginText}>Already have an account? Login</Text>
       </TouchableOpacity>
     </View>
@@ -44,13 +55,11 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
   },
-
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#000000',
     marginBottom: 50,
-
   },
   signupButton: {
     width: '90%',
@@ -72,12 +81,18 @@ const styles = StyleSheet.create({
     color: '#007bff',
   },
   image: {
-   marginTop:10,
-   marginBottom:10,
-
-   
-  
+    width: 150,
+    height: 150,
+    marginTop: 10,
+    marginBottom: 10,
+    resizeMode: 'contain',
   },
 });
+
+SignupScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default SignupScreen;

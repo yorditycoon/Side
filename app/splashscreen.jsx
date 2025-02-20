@@ -1,37 +1,40 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const SplashScreen = () => {
-  const navigation = useNavigation();
+    const navigation = useNavigation();
 
-  useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate("Signup"); 
-    }, 2000);
-  }, [navigation]); 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigation.replace('Signup');
+        }, 2000);
 
-  return (
-    <View style={styles.container}>
-      <Image
-        source={require("../assets/images/side-logo.png")}
-        style={styles.image}
-      />
-    </View>
-  );
+        return () => clearTimeout(timer);
+    }, []);
+        
+    return (
+        <View style={styles.container}>
+            <Image
+                source={require("../assets/images/Group 38.png")}
+                style={styles.image}
+                accessibilityLabel="App splash screen"
+            />
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-  image: {
-    width: 250,
-    height: 100,
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    image: {
+        marginTop: 80,
+        alignSelf: 'center',
+    },
 });
 
 export default SplashScreen;
