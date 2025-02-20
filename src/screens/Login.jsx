@@ -1,10 +1,11 @@
-import { useNavigation } from "expo-router";
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   return (
     <View style={styles.container}>
@@ -15,7 +16,6 @@ const LoginScreen = ({ navigation }) => {
 
       <Text style={styles.title}>Welcome Back!</Text>
 
-      {/* Email Input */}
       <TextInput
         style={styles.input}
         placeholder="Email Address"
@@ -23,24 +23,46 @@ const LoginScreen = ({ navigation }) => {
         autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
+        accessibilityLabel="Email input"
+        accessibilityHint="Enter your email address"
       />
 
-      {/* Password Input */}
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
+        accessibilityLabel="Password input"
+        accessibilityHint="Enter your password"
       />
 
-      {/* Login Button */}
-      <TouchableOpacity style={styles.button} onPress={() => console.log("Logging in...")}>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => {
+          if (!email || !password) {
+            setError("Please fill in both email and password");
+          } else if (!/\S+@\S+\.\S+/.test(email)) {
+            setError("Please enter a valid email address (e.g., user@example.com)");
+          } else if (password.length < 8) {
+            setError("Password must be at least 8 characters");
+          } else {
+            setError("");
+            navigation.navigate('Home');
+          }
+        }}
+        accessibilityRole="button"
+        accessibilityLabel="Login button"
+      >
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      {/* Signup Navigation */}
-      <TouchableOpacity onPress={() => useNavigation.navigate("signup")}>
+      <TouchableOpacity 
+        onPress={() => navigation.navigate("Signup")}
+        accessibilityRole="button"
+        accessibilityLabel="Sign up navigation"
+      >
         <Text style={styles.switchText}>Don't have an account? Sign up</Text>
       </TouchableOpacity>
     </View>
@@ -88,10 +110,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#007bff",
   },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+  },
   image: {
+    width: 150,
+    height: 150,
     marginTop: 0,
     marginBottom: 100,
+    resizeMode: 'contain',
   },
 });
+
+LoginScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default LoginScreen;

@@ -1,43 +1,40 @@
-import * as React from 'react';
-import { View, Image, StyleSheet, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import App from '../App';
 
 const SplashScreen = () => {
-  const navigation = useNavigation();
+    const navigation = useNavigation();
 
-  React.useEffect(() => {
-    // Automatically navigate to Login screen after 3 seconds
-    const timer = setTimeout(() => {
-      navigation.navigate('Login');
-    }, 3000);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigation.replace('Signup');
+        }, 2000);
 
-    return () => clearTimeout(timer);
-  }, [navigation]);
-
-  return (
-    <View style={styles.container}>
-      {/* Add your splash screen content here */}
-      <Image 
-        source={require('../assets/images/side-logo.png')}
-        style={styles.image}
-      />
-    </View>
-  );
+        return () => clearTimeout(timer);
+    }, []);
+        
+    return (
+        <View style={styles.container}>
+            <Image
+                source={require("../assets/images/profile-icon.png")}
+                style={styles.image}
+                accessibilityLabel="App splash screen"
+            />
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF', // Or any color you prefer
-  },
-  image: {
-    width: '80%',
-    height: '80%',
-    resizeMode: 'contain',
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    image: {
+        marginTop: 80,
+        alignSelf: 'center',
+    },
 });
 
 export default SplashScreen;

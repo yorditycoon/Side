@@ -1,23 +1,45 @@
-import { useNavigation } from "expo-router";
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet ,Image, uploadedFile} from "react-native";
-import { Picker } from "@react-native-picker/picker"; 
+import PropTypes from 'prop-types';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import * as DocumentPicker from 'expo-document-picker';
 
-const CompanyForm = () => {
-  const navigation = useNavigation();
+
+const CompanyForm = ({ navigation }) => {
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("+971");
   const [location, setLocation] = useState("Dubai");
   const [password, setPassword] = useState("");
+  const [uploadedFile, setUploadedFile] = useState(null);
+
+  const handleUpload = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: ['image/*', 'application/pdf'],
+        copyToCacheDirectory: true,
+      });
+      
+      if (result.type === 'success') {
+        setUploadedFile({
+          name: result.name,
+          uri: result.uri,
+          type: result.mimeType
+        });
+      }
+    } catch (err) {
+      console.log('Error picking document:', err);
+    }
+  };
+
+  const [error, setError] = useState("");
 
   return (
     <View style={styles.container}>
       <Image
-              source={require("../assets/images/side-icon.png")}
-              style={styles.image}
-            />
-      
+        source={require("../assets/images/side-icon.png")}
+        style={styles.image}
+      />
 
       <Text style={styles.label}>Company Name</Text>
       <TextInput
@@ -25,6 +47,8 @@ const CompanyForm = () => {
         placeholder="Company Name"
         value={companyName}
         onChangeText={setCompanyName}
+        accessibilityLabel="Company name input"
+        accessibilityHint="Enter your company name"
       />
 
       <Text style={styles.label}>Email Address</Text>
@@ -69,10 +93,11 @@ const CompanyForm = () => {
         value={password}
         onChangeText={setPassword}
       />
-            <Text style={styles.label}>Business Licence</Text>
 
-  <View style={styles.uploadContainer}>
-        <TouchableOpacity style={styles.uploadButton}>
+      <Text style={styles.label}>Business Licence</Text>
+      <View style={styles.uploadContainer}>
+        <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
+
           <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
           <Text style={styles.uploadText}>Upload</Text>
         </TouchableOpacity>
@@ -80,11 +105,29 @@ const CompanyForm = () => {
           {uploadedFile ? <Text>{uploadedFile.name}</Text> : <Text>No file uploaded</Text>}
         </View>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => console.log("home") }>
-        <Text style={styles.buttonText}>Summit</Text>
-      </TouchableOpacity>
 
-     
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => {
+          if (!companyName || !email || !phone || !password || !uploadedFile) {
+            setError("Please fill in all fields including the business license");
+          } else if (!/\S+@\S+\.\S+/.test(email)) {
+            setError("Please enter a valid email address");
+          } else if (phone.length < 9 || !/^\+?\d+$/.test(phone)) {
+            setError("Please enter a valid phone number");
+          } else if (password.length < 8) {
+            setError("Password must be at least 8 characters");
+          } else {
+            setError("");
+            navigation.navigate('Home');
+          }
+        }}
+        accessibilityRole="button"
+        accessibilityLabel="Submit company registration"
+      >
+        <Text style={styles.buttonText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -97,17 +140,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 20,
   },
-  title: {
-    fontSize: 28,
-
-    color: '#000000',
-    marginBottom: 30,
-  },
   label: {
     fontSize: 16,
-    
     alignSelf: "flex-start",
-    marginBottom: 5,
+    marginBottom: 3,
   },
   input: {
     width: "100%",
@@ -122,7 +158,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 10,
+    bordersideRadius: 10,
     marginBottom: 15,
     overflow: "hidden",
   },
@@ -137,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,
-    marginTop: 10,
+    marginTop: 5,
   },
   uploadContainer: {
     flexDirection: "row",
@@ -176,18 +212,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  
-  switchText: {
-    fontSize: 16,
-    color: "#007bff",
-    marginTop: 15,
+  errorText: {
+    color: 'red',
+    marginBottom: 5,
   },
-
-image: {
- marginTop:5,
- marginBottom:40,
-},
-
+  image: {
+    width: 150,
+    height: 150,
+    marginTop: 5,
+    marginBottom: 20,
+    resizeMode: 'contain',
+  },
 });
+
+CompanyForm.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default CompanyForm;
