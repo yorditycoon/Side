@@ -86,6 +86,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     resizeMode: 'contain',
+    right: 20,
+    
   },
 });
 
