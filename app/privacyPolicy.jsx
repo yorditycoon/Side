@@ -1,6 +1,8 @@
 import { View, Text, Button, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 
+
+
 const PrivacyPolicy = () => {
   return (
     <SafeAreaView style={styles.container}>
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "600",
   },
 });
