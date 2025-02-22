@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import CheckBox from '@react-native-community/checkbox'; // Import CheckBox from community package
+
+
 import PropTypes from 'prop-types';
 import {
   View,
@@ -21,6 +24,7 @@ const RegistrationForm = ({ navigation }) => {
   const [cvFile, setCvFile] = useState(null);
   const [idFile, setIdFile] = useState(null);
   const [error, setError] = useState("");
+  const [isAgreed, setIsAgreed] = useState(false); // State for checkbox
 
   const handleProfileUpload = async () => {
     try {
@@ -76,7 +80,17 @@ const RegistrationForm = ({ navigation }) => {
     }
   };
 
-  const handleSubmit = () => {
+const handleSubmit = () => {
+    if (!navigation) {
+        setError("Navigation prop is not available."); // Check for navigation prop
+        return; // Prevent further execution
+    }
+
+    if (!isAgreed) {
+      setError("You must agree to the privacy policy to proceed."); // Validation for checkbox
+      return; // Prevent further execution
+    }
+
     if (!fullName || !phone || !location || !email || !dob || !profileImage || !cvFile || !idFile) {
       setError("Please fill in all fields and upload all required documents");
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -195,9 +209,17 @@ const RegistrationForm = ({ navigation }) => {
       </View>
 
       <View style={styles.checkboxContainer}>
+        <CheckBox
+          value={isAgreed}
+          onValueChange={setIsAgreed}
+          style={{ marginRight: 10 }} // Optional styling for spacing
+        />
+
         <Text style={styles.privacyText}>
           I have read and agreed to the{" "}
-          <Text style={styles.link}>privacy policy</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')}>
+            <Text style={styles.link}>privacy policy</Text>
+          </TouchableOpacity>
         </Text>
       </View>
 

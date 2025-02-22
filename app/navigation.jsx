@@ -7,7 +7,7 @@ import Signup from './Signup';
 import Login from './Login';
 import CompanyForm from './companyform';
 import WorkerForm from './workerForm';
-
+import PrivacyPolicy from './privacyPolicy'; // Import the PrivacyPolicy component
 
 
 
@@ -69,36 +69,28 @@ function AppNavigation() {
                     cardStyle: { backgroundColor: '#fff' }
                 }}
             >
-                {userToken ? (
-                  // Authenticated screens
-                  <>
-                    <Stack.Screen name="Home" component={Home} />
-                  </>
-                ) : (
-                  // Unauthenticated screens
-                  <>
-                    <Stack.Screen 
-                        name="Splash" 
-                        component={SplashScreen} 
-                        options={{ gestureEnabled: false }}
-                    />
-                    <Stack.Screen name="Signup" component={Signup} />
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen 
-                        name="CompanyForm" 
-                        component={CompanyForm} 
-                        options={{ title: 'Company Registration' }}
-                    />
-                    <Stack.Screen 
-                        name="WorkerForm" 
-                        component={WorkerForm} 
-                        options={{ title: 'Worker Registration' }}
-                    />
-                  </>
-                )}
+                <Stack.Screen 
+                    name="Splash" 
+                    component={SplashScreen} 
+                    options={{ gestureEnabled: false }}
+                />
+                <Stack.Screen name="Signup" component={Signup} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen 
+                    name="CompanyForm" component={CompanyForm} 
+                    options={{ title: 'Company Registration' }}
+                />
+                <Stack.Screen 
+                    name="WorkerForm" 
+                    component={WorkerForm} 
+                    options={{ title: 'Worker Registration' }}
+                />
+                <Stack.Screen 
+                    name="PrivacyPolicy" // Add the PrivacyPolicy screen
+                    component={PrivacyPolicy} 
+                    options={{ title: 'Privacy Policy' }}
+                />
             </Stack.Navigator>
-
-
         </NavigationContainer>
     );
 }
