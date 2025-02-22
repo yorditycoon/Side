@@ -7,7 +7,7 @@ import Signup from './Signup';
 import Login from './Login';
 import CompanyForm from './companyform';
 import WorkerForm from './workerForm';
-import Home from './Home'; // Assuming you have a Home screen
+
 
 
 
