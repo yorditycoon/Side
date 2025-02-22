@@ -5,7 +5,7 @@ import Signup from './Signup';
 import Login from './Login';
 import CompanyForm from './companyform';
 import WorkerForm from './workerForm';
-
+import PrivacyPolicy from './privacyPolicy'; // Import the PrivacyPolicy component
 
 const Stack = createStackNavigator();
 
@@ -28,8 +28,7 @@ function AppNavigation() {
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen 
-                    name="CompanyForm" 
-                    component={CompanyForm} 
+                    name="CompanyForm" component={CompanyForm} 
                     options={{ title: 'Company Registration' }}
                 />
                 <Stack.Screen 
@@ -37,8 +36,12 @@ function AppNavigation() {
                     component={WorkerForm} 
                     options={{ title: 'Worker Registration' }}
                 />
+                <Stack.Screen 
+                    name="PrivacyPolicy" // Add the PrivacyPolicy screen
+                    component={PrivacyPolicy} 
+                    options={{ title: 'Privacy Policy' }}
+                />
             </Stack.Navigator>
-
         </NavigationContainer>
     );
 }

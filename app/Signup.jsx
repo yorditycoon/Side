@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
+
 const SignupScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#fff',
   },
+
   title: {
     fontSize: 28,
     fontWeight: 'bold',
