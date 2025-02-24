@@ -1,318 +1,237 @@
 import React, { useState } from "react";
-import CheckBox from '@react-native-community/checkbox'; // Import CheckBox from community package
-
-
 import PropTypes from 'prop-types';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from 'expo-document-picker';
 
-const RegistrationForm = ({ navigation }) => {
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("+971");
-  const [location, setLocation] = useState("");
+const CompanyForm = ({ navigation }) => {
+  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
-  const [dob, setDob] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
-  const [cvFile, setCvFile] = useState(null);
-  const [idFile, setIdFile] = useState(null);
-  const [error, setError] = useState("");
-  const [isAgreed, setIsAgreed] = useState(false); // State for checkbox
+  const [phone, setPhone] = useState("+971");
+  const [location, setLocation] = useState("Dubai");
+  const [password, setPassword] = useState("");
+  const [uploadedFile, setUploadedFile] = useState(null);
 
-  const handleProfileUpload = async () => {
-    try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: ['image/*'],
-        copyToCacheDirectory: true,
-      });
-      if (result.type === 'success') {
-        setProfileImage({
-          uri: result.uri,
-          name: result.name,
-          type: result.mimeType
-        });
-      }
-    } catch (err) {
-      console.log('Error picking profile image:', err);
-    }
-  };
-
-  const handleCVUpload = async () => {
-    try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: ['application/pdf'],
-        copyToCacheDirectory: true,
-      });
-      if (result.type === 'success') {
-        setCvFile({
-          uri: result.uri,
-          name: result.name,
-          type: result.mimeType
-        });
-      }
-    } catch (err) {
-      console.log('Error picking CV:', err);
-    }
-  };
-
-  const handleIDUpload = async () => {
+  const handleUpload = async () => {
     try {
       const result = await DocumentPicker.getDocumentAsync({
         type: ['image/*', 'application/pdf'],
         copyToCacheDirectory: true,
       });
+      
       if (result.type === 'success') {
-        setIdFile({
-          uri: result.uri,
+        setUploadedFile({
           name: result.name,
+          uri: result.uri,
           type: result.mimeType
         });
       }
     } catch (err) {
-      console.log('Error picking ID:', err);
+      console.log('Error picking document:', err);
     }
   };
 
-const handleSubmit = () => {
-    if (!navigation) {
-        setError("Navigation prop is not available."); // Check for navigation prop
-        return; // Prevent further execution
-    }
-
-    if (!isAgreed) {
-      setError("You must agree to the privacy policy to proceed."); // Validation for checkbox
-      return; // Prevent further execution
-    }
-
-    if (!fullName || !phone || !location || !email || !dob || !profileImage || !cvFile || !idFile) {
-      setError("Please fill in all fields and upload all required documents");
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setError("Please enter a valid email address (e.g., user@example.com)");
-    } else if (phone.length < 9 || !/^\+?\d+$/.test(phone)) {
-      setError("Please enter a valid phone number");
-    } else {
-      setError("");
-      navigation.navigate('Home');
-    }
-  };
+  const [error, setError] = useState("");
 
   return (
-    <ScrollView style={styles.container}>
-      <Image
-        source={require("../assets/images/profile-icon.png")}
-        style={styles.profileImage}
-        accessibilityLabel="Profile icon"
-      />
-
-      <TouchableOpacity style={styles.submitButton} onPress={handleProfileUpload}>
-        <View style={styles.profileButton}>
-          <Image 
-            source={require('../assets/images/upload-icon.png')} 
-            style={styles.uploadIcon}
-            accessibilityLabel="Upload icon"
-          />
-          <Text style={styles.submitText}>Profile</Text>
-        </View>
-      </TouchableOpacity>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Full Name</Text>
-        <TextInput 
-          style={styles.input}
-          value={fullName}
-          onChangeText={setFullName}
-          accessibilityLabel="Full name input"
-          accessibilityHint="Enter your full name"
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Image
+          source={require("../assets/images/side-icon.png")}
+          style={styles.image}
         />
-      </View>
 
-      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Full Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Company Name"
+          value={companyName}
+          onChangeText={setCompanyName}
+          accessibilityLabel="Company name input"
+          accessibilityHint="Enter your company name"
+        />
+
+        <Text style={styles.label}>Email Address</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email Address"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+        />
+
         <Text style={styles.label}>Phone Number</Text>
         <TextInput
           style={styles.input}
+          placeholder="+971"
+          keyboardType="phone-pad"
           value={phone}
           onChangeText={setPhone}
-          keyboardType="phone-pad"
-          accessibilityLabel="Phone number input"
-          accessibilityHint="Enter your phone number"
         />
-      </View>
 
-      <View style={styles.inputGroup}>
         <Text style={styles.label}>Location</Text>
-        <TextInput 
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={location}
+            onValueChange={(itemValue) => setLocation(itemValue)}
+            style={styles.picker}
+          >
+            <Picker.Item label="Dubai" value="Dubai" />
+            <Picker.Item label="Abu Dhabi" value="Abu Dhabi" />
+            <Picker.Item label="Sharjah" value="Sharjah" />
+            <Picker.Item label="Ajman" value="Ajman" />
+            <Picker.Item label="Ras Al Khaimah" value="Ras Al Khaimah" />
+          </Picker>
+        </View>
+
+        <Text style={styles.label}>Password</Text>
+        <TextInput
           style={styles.input}
-          value={location}
-          onChangeText={setLocation}
-          accessibilityLabel="Location input"
-          accessibilityHint="Enter your location"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Email</Text>
-        <TextInput 
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          accessibilityLabel="Email input"
-          accessibilityHint="Enter your email address"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Date of Birth</Text>
-        <TextInput 
-          style={styles.input}
-          value={dob}
-          onChangeText={setDob}
-          accessibilityLabel="Date of birth input"
-          accessibilityHint="Enter your date of birth"
-        />
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>CV</Text>
-        <TouchableOpacity style={styles.submitButton} onPress={handleCVUpload}>
-          <View style={styles.profileButton}>
-            <Image 
-              source={require('../assets/images/upload-icon.png')} 
-              style={styles.uploadIcon}
-              accessibilityLabel="Upload icon"
-            />
-            <Text style={styles.submitText}>Upload your CV</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Emirates ID</Text>
-        <TouchableOpacity style={styles.submitButton} onPress={handleIDUpload}>
-          <View style={styles.profileButton}>
-            <Image 
-              source={require('../assets/images/upload-icon.png')} 
-              style={styles.uploadIcon}
-              accessibilityLabel="Upload icon"
-            />
-            <Text style={styles.submitText}>Upload your ID</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={isAgreed}
-          onValueChange={setIsAgreed}
-          style={{ marginRight: 10 }} // Optional styling for spacing
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
 
-        <Text style={styles.privacyText}>
-          I have read and agreed to the{" "}
-          <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')}>
-            <Text style={styles.link}>privacy policy</Text>
+        <Text style={styles.label}>Business Licence</Text>
+        <View style={styles.uploadContainer}>
+          <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
+            <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
+            <Text style={styles.uploadText}>Upload</Text>
           </TouchableOpacity>
-        </Text>
-      </View>
+          <View style={styles.fileBox}>
+            {uploadedFile ? <Text>{uploadedFile.name}</Text> : <Text>No file uploaded</Text>}
+          </View>
+        </View>
 
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
-      <TouchableOpacity 
-        style={styles.submitButton}
-        onPress={handleSubmit}
-        accessibilityRole="button"
-        accessibilityLabel="Submit registration"
-        accessibilityHint="Submit your worker registration form"
-      >
-        <Text style={styles.submitText}>Submit</Text>
-      </TouchableOpacity>
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => {
+            if (!companyName || !email || !phone || !password || !uploadedFile) {
+              setError("Please fill in all fields including the business license");
+            } else if (!/\S+@\S+\.\S+/.test(email)) {
+              setError("Please enter a valid email address");
+            } else if (phone.length < 9 || !/^\+?\d+$/.test(phone)) {
+              setError("Please enter a valid phone number");
+            } else if (password.length < 8) {
+              setError("Password must be at least 8 characters");
+            } else {
+              setError("");
+              navigation.navigate('Home');
+            }
+          }}
+          accessibilityRole="button"
+          accessibilityLabel="Submit company registration"
+        >
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
     padding: 20,
-    backgroundColor: "#F8F9FA",
-  },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    alignSelf: "center",
-    margin: 20,
-    resizeMode: 'contain',
-  },
-  profileButton: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  inputGroup: {
-    marginBottom: 15,
   },
   label: {
-    fontSize: 14,
-    fontWeight: "bold",
-    marginBottom: 5,
+    fontSize: 16,
+    alignSelf: "flex-start",
+    marginBottom: 3,
   },
   input: {
-    height: 40,
+    width: "100%",
+    height: 50,
     borderWidth: 1,
-    borderColor: "#C4C4C4",
-    borderRadius: 5,
-    backgroundColor: "#F1F1F1",
+    borderColor: "#ccc",
+    borderRadius: 10,
     paddingHorizontal: 10,
+    marginBottom: 15,
+  },
+  pickerContainer: {
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    marginBottom: 15,
+    overflow: "hidden",
+  },
+  picker: {
+    width: "100%",
+    height: 50,
+  },
+  button: {
+    width: "70%",
+    height: 50,
+    backgroundColor: "rgba(19, 65, 105, 1)",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+    marginTop: 5,
+  },
+  uploadContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  uploadButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(19, 65, 105, 1)",
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 5,
+    marginRight: 10,
   },
   uploadIcon: {
     width: 20,
     height: 20,
     marginRight: 10,
   },
-  checkboxContainer: {
-    flexDirection: "row",
+  uploadText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  fileBox: {
+    width: 150,
+    height: 40,
+    backgroundColor: "#ccc",
+    justifyContent: "center",
     alignItems: "center",
-    marginVertical: 10,
+    borderRadius: 10,
   },
-  privacyText: {
-    marginLeft: 5,
-  },
-  link: {
-    color: "#007BFF",
-    textDecorationLine: "underline",
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   errorText: {
     color: 'red',
-    marginBottom: 10,
-    textAlign: 'center',
+    marginBottom: 5,
   },
-  submitButton: {
-    backgroundColor: "rgba(19, 65, 105, 1)",
-    paddingVertical: 15,
-    borderRadius: 100,
-    alignItems: "center",
-    marginVertical: 10,
-  },
-  submitText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 16,
+  image: {
+    width: 150,
+    height: 150,
+    marginTop: 5,
+    marginBottom: 20,
+    resizeMode: 'contain',
   },
 });
 
-RegistrationForm.propTypes = {
+CompanyForm.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default RegistrationForm;
+export default CompanyForm;

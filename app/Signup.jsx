@@ -29,6 +29,7 @@ const SignupScreen = ({ navigation }) => {
         style={styles.signupButton}
         onPress={() => navigation.navigate('WorkerForm')}
 
+
         accessibilityRole="button"
         accessibilityLabel="Sign up as a worker"
         accessibilityHint="Navigate to worker registration form"
