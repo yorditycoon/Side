@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#000000',
-    marginBottom: 40,
+    marginBottom: 50,
   },
   input: {
     width: "100%",
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 15,
+    
   },
   button: {
     width: "70%",
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 30,
     marginTop: 10,
+    marginBottom: 10,
   },
   buttonText: {
     color: "#fff",
@@ -109,18 +111,19 @@ const styles = StyleSheet.create({
   switchText: {
     fontSize: 16,
     color: "#007bff",
+    
   },
   errorText: {
     color: 'red',
     marginBottom: 10,
   },
   image: {
-    width: 150,
-    height: 150,
-    marginTop: 0,
-    marginBottom: 100,
+    width: 100,
+    height: 100,
+  
+    marginBottom: 200,
     resizeMode: 'contain',
-  },
+  }
 });
 
 LoginScreen.propTypes = {

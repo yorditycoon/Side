@@ -104,6 +104,13 @@ const CompanyForm = ({ navigation }) => {
             {uploadedFile ? <Text>{uploadedFile.name}</Text> : <Text>No file uploaded</Text>}
           </View>
         </View>
+          <Text style={styles.privacyText}>
+                  I have read and agreed to the{" "}
+                  <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')}>
+                    <Text style={styles.link}>privacy policy</Text>
+                  </TouchableOpacity>
+                </Text>
+              
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
         <TouchableOpacity 
@@ -119,7 +126,8 @@ const CompanyForm = ({ navigation }) => {
               setError("Password must be at least 8 characters");
             } else {
               setError("");
-              navigation.navigate('Home');
+              navigation.navigate('Signup');
+
             }
           }}
           accessibilityRole="button"
@@ -209,6 +217,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+    
   },
   buttonText: {
     color: "#fff",
@@ -220,11 +229,19 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   image: {
-    width: 150,
-    height: 150,
-    marginTop: 5,
+    width: 100,
+    height: 100,
+    marginTop: 0,
     marginBottom: 20,
+
     resizeMode: 'contain',
+  },
+  privacyText: {
+    marginLeft: 5,
+  },
+  link: {
+    color: "#007BFF",
+    textDecorationLine: "underline",
   },
 });
 

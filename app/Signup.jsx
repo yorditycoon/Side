@@ -51,7 +51,7 @@ const SignupScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
     color: '#007bff',
   },
   image: {
-    width: 150,
-    height: 150,
-    marginTop: 10,
-    marginBottom: 10,
+    width: 100,
+    height: 100,
+    marginTop: 66,
+    marginBottom: 200,
     resizeMode: 'contain',
-    right: 20,
+    
     
   },
 });

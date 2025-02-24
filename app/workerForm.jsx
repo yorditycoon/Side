@@ -4,15 +4,17 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView 
 import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from 'expo-document-picker';
 
-const CompanyForm = ({ navigation }) => {
-  const [companyName, setCompanyName] = useState("");
+const WorkerForm = ({ navigation }) => {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("+971");
   const [location, setLocation] = useState("Dubai");
   const [password, setPassword] = useState("");
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [cvFile, setCvFile] = useState(null);
+  const [emiratesIdFile, setEmiratesIdFile] = useState(null);
+  const [error, setError] = useState("");
 
-  const handleUpload = async () => {
+  const handleUpload = async (setFile) => {
     try {
       const result = await DocumentPicker.getDocumentAsync({
         type: ['image/*', 'application/pdf'],
@@ -20,7 +22,7 @@ const CompanyForm = ({ navigation }) => {
       });
       
       if (result.type === 'success') {
-        setUploadedFile({
+        setFile({
           name: result.name,
           uri: result.uri,
           type: result.mimeType
@@ -31,24 +33,15 @@ const CompanyForm = ({ navigation }) => {
     }
   };
 
-  const [error, setError] = useState("");
-
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <Image
-          source={require("../assets/images/side-icon.png")}
-          style={styles.image}
-        />
-
         <Text style={styles.label}>Full Name</Text>
         <TextInput
           style={styles.input}
-          placeholder="Company Name"
-          value={companyName}
-          onChangeText={setCompanyName}
-          accessibilityLabel="Company name input"
-          accessibilityHint="Enter your company name"
+          placeholder="Full Name"
+          value={fullName}
+          onChangeText={setFullName}
         />
 
         <Text style={styles.label}>Email Address</Text>
@@ -94,23 +87,26 @@ const CompanyForm = ({ navigation }) => {
           onChangeText={setPassword}
         />
 
-        <Text style={styles.label}>Business Licence</Text>
-        <View style={styles.uploadContainer}>
-          <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
-            <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
-            <Text style={styles.uploadText}>Upload</Text>
-          </TouchableOpacity>
-          <View style={styles.fileBox}>
-            {uploadedFile ? <Text>{uploadedFile.name}</Text> : <Text>No file uploaded</Text>}
-          </View>
-        </View>
+        <Text style={styles.label}>CV</Text>
+        <TouchableOpacity style={styles.uploadButton} onPress={() => handleUpload(setCvFile)}>
+          <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
+          <Text style={styles.uploadText}>Upload CV</Text>
+        </TouchableOpacity>
+        <Text>{cvFile ? cvFile.name : "No CV uploaded"}</Text>
+
+        <Text style={styles.label}>Emirates ID</Text>
+        <TouchableOpacity style={styles.uploadButton} onPress={() => handleUpload(setEmiratesIdFile)}>
+          <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
+          <Text style={styles.uploadText}>Upload Emirates ID</Text>
+        </TouchableOpacity>
+        <Text>{emiratesIdFile ? emiratesIdFile.name : "No Emirates ID uploaded"}</Text>
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
         <TouchableOpacity 
           style={styles.button} 
           onPress={() => {
-            if (!companyName || !email || !phone || !password || !uploadedFile) {
-              setError("Please fill in all fields including the business license");
+            if (!fullName || !email || !phone || !password || !cvFile || !emiratesIdFile) {
+              setError("Please fill in all fields including the CV and Emirates ID");
             } else if (!/\S+@\S+\.\S+/.test(email)) {
               setError("Please enter a valid email address");
             } else if (phone.length < 9 || !/^\+?\d+$/.test(phone)) {
@@ -119,11 +115,11 @@ const CompanyForm = ({ navigation }) => {
               setError("Password must be at least 8 characters");
             } else {
               setError("");
-              navigation.navigate('Home');
+              navigation.navigate('Signup');
             }
           }}
           accessibilityRole="button"
-          accessibilityLabel="Submit company registration"
+          accessibilityLabel="Submit worker registration"
         >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
@@ -178,11 +174,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginTop: 5,
   },
-  uploadContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 15,
-  },
   uploadButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -202,14 +193,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  fileBox: {
-    width: 150,
-    height: 40,
-    backgroundColor: "#ccc",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-  },
   buttonText: {
     color: "#fff",
     fontSize: 18,
@@ -219,19 +202,19 @@ const styles = StyleSheet.create({
     color: 'red',
     marginBottom: 5,
   },
-  image: {
-    width: 150,
-    height: 150,
-    marginTop: 5,
-    marginBottom: 20,
-    resizeMode: 'contain',
+  privacyText: {
+    marginLeft: 5,
+  },
+  link: {
+    color: "#007BFF",
+    textDecorationLine: "underline",
   },
 });
 
-CompanyForm.propTypes = {
+WorkerForm.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default CompanyForm;
+export default WorkerForm;
