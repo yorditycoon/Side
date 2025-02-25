@@ -88,19 +88,22 @@ const WorkerForm = ({ navigation }) => {
         />
 
         <Text style={styles.label}>CV</Text>
+         <View style={styles.uploadContainer}>
         <TouchableOpacity style={styles.uploadButton} onPress={() => handleUpload(setCvFile)}>
           <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
-          <Text style={styles.uploadText}>Upload CV</Text>
+          <Text style={styles.uploadText}>Upload</Text>
         </TouchableOpacity>
-        <Text>{cvFile ? cvFile.name : "No CV uploaded"}</Text>
+        <View style={styles.fileBox}><Text>{cvFile ? cvFile.name : "No file uploaded"}</Text></View>
+</View>
 
         <Text style={styles.label}>Emirates ID</Text>
+        <View style={styles.uploadContainer}>
         <TouchableOpacity style={styles.uploadButton} onPress={() => handleUpload(setEmiratesIdFile)}>
           <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
-          <Text style={styles.uploadText}>Upload Emirates ID</Text>
+          <Text style={styles.uploadText}>Upload</Text>
         </TouchableOpacity>
-        <Text>{emiratesIdFile ? emiratesIdFile.name : "No Emirates ID uploaded"}</Text>
-
+        <View style={styles.fileBox}><Text>{emiratesIdFile ? emiratesIdFile.name : "no file upload"}</Text></View>
+        </View>
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
         <TouchableOpacity 
           style={styles.button} 
@@ -153,6 +156,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 15,
   },
+  uploadContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 15,
+  },
   pickerContainer: {
     width: "100%",
     borderWidth: 1,
@@ -164,6 +172,24 @@ const styles = StyleSheet.create({
   picker: {
     width: "100%",
     height: 50,
+  },
+  fileBox: {
+    width: 150,
+    height: 40,
+    backgroundColor: "#ccc",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 5,
   },
   button: {
     width: "70%",
@@ -193,6 +219,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
+
   buttonText: {
     color: "#fff",
     fontSize: 18,
