@@ -9,8 +9,6 @@ import WorkerForm from './workerForm';
 
 
 
-
-
 const Stack = createStackNavigator();
 
 function AppNavigation() {
