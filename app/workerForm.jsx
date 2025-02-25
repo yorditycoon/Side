@@ -12,7 +12,6 @@ const WorkerForm = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [cvFile, setCvFile] = useState(null);
   const [emiratesIdFile, setEmiratesIdFile] = useState(null);
-  const [profilePicture, setProfilePicture] = useState(null); // New state for profile picture
   const [error, setError] = useState("");
 
   const handleUpload = async (setFile) => {
@@ -34,35 +33,9 @@ const WorkerForm = ({ navigation }) => {
     }
   };
 
-  const handleProfilePictureUpload = async () => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type: ['image/*'],
-      copyToCacheDirectory: true,
-    });
-
-    if (result.type === 'success') {
-      setProfilePicture({
-        uri: result.uri,
-      });
-    }
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        
-        {/* Profile Picture Section */}
-        <TouchableOpacity onPress={handleProfilePictureUpload}>
-          {profilePicture ? (
-            <Image source={{ uri: profilePicture.uri }} style={styles.profilePicture} />
-          ) : (
-            <View style={styles.profilePlaceholder}>
-<Image source={require("../assets/images/profile-icon.png")} style={styles.profilePicture} />
-
-            </View>
-          )}
-        </TouchableOpacity>
-
         <Text style={styles.label}>Full Name</Text>
         <TextInput
           style={styles.input}
@@ -166,25 +139,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 20,
   },
-  profilePicture: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 20,
-  },
-  profilePlaceholder: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: "#ccc",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  placeholderText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
   label: {
     fontSize: 16,
     alignSelf: "flex-start",
@@ -262,3 +216,5 @@ WorkerForm.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+export default WorkerForm;
