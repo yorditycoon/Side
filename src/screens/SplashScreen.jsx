@@ -8,7 +8,7 @@ const SplashScreen = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigation.replace('Signup');
-        }, 4000);
+        }, 2000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -16,7 +16,7 @@ const SplashScreen = () => {
     return (
         <View style={styles.container}>
             <Image
-                source={require("../assets/images/Group 38.png")}
+                source={require("../assets/images/logo-icon.png")}
                 style={styles.image}
                 accessibilityLabel="App splash screen"
             />

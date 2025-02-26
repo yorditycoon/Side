@@ -36,6 +36,17 @@ const WorkerForm = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
+        <View style={styles.profileContainer}>
+          <TouchableOpacity style={styles.profileCircle} onPress={() => handleUpload(setEmiratesIdFile)}>
+            {emiratesIdFile ? (
+              <Image source={{ uri: emiratesIdFile.uri }} style={styles.profileImage} />
+            ) : (
+              <Image source={require("../assets/images/profile2-icon.png")} style={styles.profileLogo} />
+            )}
+          </TouchableOpacity>
+          <Text style={styles.profileText}>Add Profile</Text>
+        </View>
+
         <Text style={styles.label}>Full Name</Text>
         <TextInput
           style={styles.input}
@@ -88,22 +99,28 @@ const WorkerForm = ({ navigation }) => {
         />
 
         <Text style={styles.label}>CV</Text>
-         <View style={styles.uploadContainer}>
-        <TouchableOpacity style={styles.uploadButton} onPress={() => handleUpload(setCvFile)}>
-          <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
-          <Text style={styles.uploadText}>Upload</Text>
-        </TouchableOpacity>
-        <View style={styles.fileBox}><Text>{cvFile ? cvFile.name : "No file uploaded"}</Text></View>
-</View>
+        <View style={styles.uploadContainer}>
+          <TouchableOpacity style={styles.uploadButton} onPress={() => handleUpload(setCvFile)}>
+            <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
+            <Text style={styles.uploadText}>Upload</Text>
+          </TouchableOpacity>
+          <View style={styles.fileBox}><Text>{cvFile ? cvFile.name : "No file uploaded"}</Text></View>
+        </View>
 
         <Text style={styles.label}>Emirates ID</Text>
         <View style={styles.uploadContainer}>
-        <TouchableOpacity style={styles.uploadButton} onPress={() => handleUpload(setEmiratesIdFile)}>
-          <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
-          <Text style={styles.uploadText}>Upload</Text>
-        </TouchableOpacity>
-        <View style={styles.fileBox}><Text>{emiratesIdFile ? emiratesIdFile.name : "no file upload"}</Text></View>
+          <TouchableOpacity style={styles.uploadButton} onPress={() => handleUpload(setEmiratesIdFile)}>
+            <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
+            <Text style={styles.uploadText}>Upload</Text>
+          </TouchableOpacity>
+          <View style={styles.fileBox}><Text>{emiratesIdFile ? emiratesIdFile.name : "no file upload"}</Text></View>
         </View>
+        <Text style={styles.privacyText}>
+                          I have read and agreed to the{" "}
+                          <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')}>
+                            <Text style={styles.link}>privacy policy</Text>
+                          </TouchableOpacity>
+                        </Text>
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
         <TouchableOpacity 
           style={styles.button} 
@@ -140,7 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
-    padding: 20,
+    padding: 15,
   },
   label: {
     fontSize: 16,
@@ -161,6 +178,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
   },
+  uploadButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(19, 65, 105, 1)",
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 15,
+    marginRight: 10,
+  },
+  uploadIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  uploadText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
   pickerContainer: {
     width: "100%",
     borderWidth: 1,
@@ -180,7 +216,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    
   },
   buttonText: {
     color: "#fff",
@@ -197,17 +232,37 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(19, 65, 105, 1)",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 30,
+    borderRadius: 50,
     marginTop: 5,
   },
-  uploadButton: {
-    flexDirection: "row",
+  profileContainer: {
     alignItems: "center",
-    backgroundColor: "rgba(19, 65, 105, 1)",
-    paddingVertical: 10,
-    paddingHorizontal: 40,
-    borderRadius: 5,
-    marginRight: 10,
+    
+  },
+  profileCircle: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: "#f0f0f0",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "rgba(19, 65, 105, 1)",
+  },
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+  },
+  profileLogo: {
+    width: 60,
+    height: 60,
+    
+  },
+  profileText: {
+    marginTop: 8,
+    fontSize: 14,
+    color: "rgba(19, 65, 105, 1)",
   },
   uploadIcon: {
     width: 20,
@@ -218,16 +273,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
-  },
-
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  errorText: {
-    color: 'red',
-    marginBottom: 5,
   },
   privacyText: {
     marginLeft: 5,

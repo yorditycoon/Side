@@ -92,15 +92,17 @@ const PrivacyPolicy = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    margin: 15,
     
-    padding:40,
-    marginLeft: 20,
   },
   header: {
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 15,
+    marginBottom: 10,
     color: "#0e0d0d",
   },
   scrollContainer: {
@@ -123,11 +125,12 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#002E5E",
-    paddingVertical: 12,
-    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 35,
+    borderRadius: 25,
     alignItems: "center",
     marginTop: 5,
-    marginBottom: 50,
+    marginBottom: 10,
     
   },
   buttonText: {
