@@ -5,6 +5,8 @@ import { Picker } from "@react-native-picker/picker";
 import * as DocumentPicker from 'expo-document-picker';
 
 const WorkerForm = ({ navigation }) => {
+    const [profileImage, setProfileImage] = useState(null);
+  
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("+971");
@@ -37,13 +39,12 @@ const WorkerForm = ({ navigation }) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <View style={styles.profileContainer}>
-          <TouchableOpacity style={styles.profileCircle} onPress={() => handleUpload(setEmiratesIdFile)}>
-            {emiratesIdFile ? (
-              <Image source={{ uri: emiratesIdFile.uri }} style={styles.profileImage} />
-            ) : (
-              <Image source={require("../assets/images/profile2-icon.png")} style={styles.profileLogo} />
-            )}
-          </TouchableOpacity>
+           <TouchableOpacity style={styles.profileCircle} onPress={() => handleUpload(setProfileImage)} >
+                      {profileImage ? (<Image source={{ uri: profileImage.uri }} style={styles.profileImage} />
+                      ) : (
+                        <Image source={require("../assets/images/profile2-icon.png")} style={styles.profileLogo} />
+                      )}
+                    </TouchableOpacity>
           <Text style={styles.profileText}>Add Profile</Text>
         </View>
 
@@ -113,7 +114,7 @@ const WorkerForm = ({ navigation }) => {
             <Image source={require("../assets/images/upload.png")} style={styles.uploadIcon} />
             <Text style={styles.uploadText}>Upload</Text>
           </TouchableOpacity>
-          <View style={styles.fileBox}><Text>{emiratesIdFile ? emiratesIdFile.name : "no file upload"}</Text></View>
+          <View style={styles.fileBox}><Text>{emiratesIdFile ? emiratesIdFile.name : "No file uploaded"}</Text></View>
         </View>
         <Text style={styles.privacyText}>
                           I have read and agreed to the{" "}

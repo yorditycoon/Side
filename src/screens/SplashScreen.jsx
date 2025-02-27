@@ -8,7 +8,7 @@ const SplashScreen = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigation.replace('Signup');
-        }, 2000);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
     },
+
     image: {
         marginTop: 80,
         alignSelf: 'center',

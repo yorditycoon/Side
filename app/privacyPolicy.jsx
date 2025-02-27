@@ -1,4 +1,4 @@
-import { View, Text, Button, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, button, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 
 
@@ -82,9 +82,10 @@ const PrivacyPolicy = () => {
         </Text>
       </ScrollView>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={() => navigation.usenavigate('companyform')} style={styles.button} >
         <Text style={styles.buttonText}>Accept</Text>
       </TouchableOpacity>
+      
     </SafeAreaView>
   );
 };

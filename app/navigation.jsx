@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import SplashScreen from './splashscreen';
+import SplashScreen from './Splashscreen';
 import Signup from './Signup';
 import Login from './Login';
 import CompanyForm from './companyform';
@@ -11,7 +11,7 @@ import WorkerForm from './workerForm';
 
 const Stack = createStackNavigator();
 
-function AppNavigation() {
+function navigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator 
@@ -52,4 +52,4 @@ function AppNavigation() {
     );
 }
 
-export default AppNavigation;
+export default navigation;
