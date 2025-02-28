@@ -30,11 +30,13 @@ const Profile = ({ navigation, rating = 0 }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
+     
       <View style={styles.container}>
         <View style={styles.blueRectangle}>
+
           <TouchableOpacity style={styles.profileCircle} onPress={() => handleUpload(setProfileImage)}>
             <TouchableOpacity style={styles.menuIcon} onPress={() => navigation.navigate('OtherPage')}>
-              <Icon name="menu" size={24} color="#fff" /> 
+              <Icon name="menu" size={24} color="#fff" />  
             </TouchableOpacity>
             {profileImage ? (<Image source={{ uri: profileImage.uri }} style={styles.profileImage} />
             ) : (
@@ -57,10 +59,13 @@ const Profile = ({ navigation, rating = 0 }) => {
 
           {/* New Section for Badge */}
           <View style={styles.badgeContainer}>
-            <Text style={styles.badgeText}>New</Text>
+            <Text style={styles.badgeText}>ID:34532</Text>
           </View>
         </View>
+        <Text style={styles.appliedjob}>Applied Jobs</Text>
       </View>
+
+ 
     </ScrollView>
   );
 };
@@ -132,7 +137,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   badgeContainer: {
-    backgroundColor: 'red',
     borderRadius: 12,
     padding: 5,
     position: 'absolute',
@@ -141,13 +145,25 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: 15,
   },
   menuIcon: {
     justifyContent: 'flex-start',
     position: 'absolute',
    top: -20,
     right: -110,
+  },
+
+  appliedjob: {
+    fontSize: 20,
+    color: "#000",
+    fontWeight: "bold",
+marginTop: 20, 
+    padding: 10, 
+    borderRadius: 5,
+    right: 100,
+
+
   },
 });
 
