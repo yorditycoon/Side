@@ -66,28 +66,28 @@ const Profile = ({ navigation, rating = 0 }) => {
 <View style={styles.Jobcontainer}>
   <Text style ={styles.jobtitle}> Professional Waiter</Text>
   <Text style ={styles.joblocation}> Dubai</Text>
-  <Text style ={styles.jobsalary}> 34/hr</Text>
+  <Text style ={styles.jobsalary}> AED 34/hour</Text>
   <Text style ={styles.jobstatus}> Status</Text>
   <Text style ={styles.jobpending}> pending</Text>
  </View>
  <View style={styles.Jobcontainer}>
   <Text style ={styles.jobtitle}> Professional Waiter</Text>
   <Text style ={styles.joblocation}> Dubai</Text>
-  <Text style ={styles.jobsalary}> 34/hr</Text>
+  <Text style ={styles.jobsalary}> AED 34/hour</Text>
   <Text style ={styles.jobstatus}> Status</Text>
   <Text style ={styles.jobApproved}> Approved</Text>
  </View>
  <View style={styles.Jobcontainer}>
   <Text style ={styles.jobtitle}> Professional Waiter</Text>
   <Text style ={styles.joblocation}> Dubai</Text>
-  <Text style ={styles.jobsalary}> 34/hr</Text>
+  <Text style ={styles.jobsalary}> AED 34/hour</Text>
   <Text style ={styles.jobstatus}> Status</Text>
   <Text style ={styles.jobpending}> pending</Text>
  </View>
  <View style={styles.Jobcontainer}>
   <Text style ={styles.jobtitle}> Professional Waiter</Text>
   <Text style ={styles.joblocation}> Dubai</Text>
-  <Text style ={styles.jobsalary}> 34/hr</Text>
+  <Text style ={styles.jobsalary}> AED 34/hour</Text>
   <Text style ={styles.jobstatus}> Status</Text>
   <Text style ={styles.jobpending}> pending</Text>
  </View>
