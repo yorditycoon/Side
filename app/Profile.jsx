@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView ,} from "react-native";
 import * as DocumentPicker from 'expo-document-picker';
 
 const Profile = ({ navigation, rating = 0 }) => {
@@ -63,6 +63,13 @@ const Profile = ({ navigation, rating = 0 }) => {
           </View>
         </View>
         <Text style={styles.appliedjob}>Applied Jobs</Text>
+<View style={styles.Jobcontainer}>
+  <Text style ={styles.jobtitle}> Waiter</Text>
+  <Text style ={styles.joblocation}> Dubai</Text>
+  <Text style ={styles.jobsalary}> 34/hr</Text>
+
+
+  </View>
       </View>
 
  
@@ -162,8 +169,15 @@ marginTop: 20,
     padding: 10, 
     borderRadius: 5,
     right: 100,
-
-
+},
+Jobcontainer: {
+    width: '100%',
+    height:100, 
+    backgroundColor: '#dcdee0',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    borderRadius: 20,
+    marginTop: 10,
   },
 });
 
