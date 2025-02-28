@@ -64,7 +64,7 @@ const Profile = ({ navigation, rating = 0 }) => {
         </View>
         <Text style={styles.appliedjob}>Applied Jobs</Text>
 <View style={styles.Jobcontainer}>
-  <Text style ={styles.jobtitle}> Waiter</Text>
+  <Text style ={styles.jobtitle}> Professional Waiter</Text>
   <Text style ={styles.joblocation}> Dubai</Text>
   <Text style ={styles.jobsalary}> 34/hr</Text>
 
@@ -171,6 +171,7 @@ marginTop: 20,
     right: 100,
 },
 Jobcontainer: {
+    
     width: '100%',
     height:100, 
     backgroundColor: '#dcdee0',
@@ -178,6 +179,25 @@ Jobcontainer: {
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 10,
+  },
+  
+
+  jobtitle: {
+    fontSize: 20,
+    alignSelf: 'flex-start',
+    marginTop: 10,
+    marginLeft: 10,
+  },
+  joblocation: {
+    alignSelf: 'flex-start',
+    marginTop: 5,
+    marginLeft: 30,
+    color: '#8a8484',
+  },
+  jobsalary :{
+      marginTop: -15,
+    marginRight: 100,
+    color: '#030303',
   },
 });
 
