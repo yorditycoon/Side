@@ -67,9 +67,31 @@ const Profile = ({ navigation, rating = 0 }) => {
   <Text style ={styles.jobtitle}> Professional Waiter</Text>
   <Text style ={styles.joblocation}> Dubai</Text>
   <Text style ={styles.jobsalary}> 34/hr</Text>
-
-
-  </View>
+  <Text style ={styles.jobstatus}> Status</Text>
+  <Text style ={styles.jobpending}> pending</Text>
+ </View>
+ <View style={styles.Jobcontainer}>
+  <Text style ={styles.jobtitle}> Professional Waiter</Text>
+  <Text style ={styles.joblocation}> Dubai</Text>
+  <Text style ={styles.jobsalary}> 34/hr</Text>
+  <Text style ={styles.jobstatus}> Status</Text>
+  <Text style ={styles.jobApproved}> Approved</Text>
+ </View>
+ <View style={styles.Jobcontainer}>
+  <Text style ={styles.jobtitle}> Professional Waiter</Text>
+  <Text style ={styles.joblocation}> Dubai</Text>
+  <Text style ={styles.jobsalary}> 34/hr</Text>
+  <Text style ={styles.jobstatus}> Status</Text>
+  <Text style ={styles.jobpending}> pending</Text>
+ </View>
+ <View style={styles.Jobcontainer}>
+  <Text style ={styles.jobtitle}> Professional Waiter</Text>
+  <Text style ={styles.joblocation}> Dubai</Text>
+  <Text style ={styles.jobsalary}> 34/hr</Text>
+  <Text style ={styles.jobstatus}> Status</Text>
+  <Text style ={styles.jobpending}> pending</Text>
+ </View>
+ 
       </View>
 
  
@@ -171,7 +193,7 @@ marginTop: 20,
     right: 100,
 },
 Jobcontainer: {
-    
+  padding: 10,
     width: '100%',
     height:100, 
     backgroundColor: '#dcdee0',
@@ -180,8 +202,6 @@ Jobcontainer: {
     borderRadius: 20,
     marginTop: 10,
   },
-  
-
   jobtitle: {
     fontSize: 20,
     alignSelf: 'flex-start',
@@ -199,6 +219,23 @@ Jobcontainer: {
     marginRight: 100,
     color: '#030303',
   },
+
+  jobstatus: {
+    marginTop: -40,
+    marginLeft: 200,
+    color: '#8a8484',
+  },
+  jobpending: {
+    marginTop: 10,
+    marginLeft: 205,
+    color: 'red',
+  },
+  jobApproved: {
+    marginTop: 10,
+    marginLeft: 205,
+    color: '#1ddb1d',
+  },
+
 });
 
 Profile.propTypes = {
